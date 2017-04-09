@@ -1,0 +1,4 @@
+# All IntelliJ produced stuff
+out
+.idea
+Painter.iml
