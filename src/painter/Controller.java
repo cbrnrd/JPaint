@@ -13,6 +13,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Paint;
+import javafx.stage.FileChooser;
 
 
 import javax.imageio.ImageIO;
@@ -36,9 +38,12 @@ public class Controller {
     private CheckBox eraser;
 
 
+    final FileChooser fileChooser = new FileChooser();
+
+
     /**
      * Called automatically by the <code>FXMLLoader</code>.
-     * Allows for the actual painting to happen on the <code>Canvas</code>
+     *  Allows for the actual painting to happen on the <code>Canvas</code>
      * @since 1.0.0
      */
     public void initialize(){
@@ -68,10 +73,12 @@ public class Controller {
 
             // Save image to file
             ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", new File("paint.png"));
+            infoAlertUser("Image saved to " + new File("paint.png").getAbsolutePath());
         } catch (Exception e){
             alertUser(null, "Unable to save. Error:" + e.getMessage(), "Error saving", Alert.AlertType.ERROR);
         }
     }
+
 
     /**
      * Exits out of the program
@@ -94,7 +101,7 @@ public class Controller {
     }
 
     /**
-     * Displays a custom dialog (MessageBox) to the end user
+     * Displays a custom dialog to the end user
      *
      * @since 1.0.0
      * @param header The header text of the alert
@@ -108,6 +115,7 @@ public class Controller {
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(s);
+        alert.setResizable(false);
         alert.showAndWait();
     }
 
