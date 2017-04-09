@@ -13,6 +13,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 
@@ -46,15 +47,15 @@ public class Controller {
      *  Allows for the actual painting to happen on the <code>Canvas</code>
      * @since 1.0.0
      */
-    public void initialize(){
+    public void initialize() {
         GraphicsContext g = canvas.getGraphicsContext2D();
 
         canvas.setOnMouseDragged(e -> {
             double size = Double.parseDouble(brushSize.getText());
-            double x = e.getX() - size/2;
-            double y = e.getY() - size/2;
+            double x = e.getX() - size / 2;
+            double y = e.getY() - size / 2;
 
-            if (eraser.isSelected()){
+            if (eraser.isSelected()) {
                 g.clearRect(x, y, size, size);
             } else {
                 g.setFill(colorPicker.getValue());
@@ -67,6 +68,7 @@ public class Controller {
      * Saves a <code>png</code> snapshot of the image (as of 1.0.0, it's <code>paint.png</code>)
      * @since 1.0.0
      */
+    //TODO: 4/9/2017 Change this to onSaveAs and have the user choose location and file name
     public void onSave(){
         try{
             Image snapshot = canvas.snapshot(null, null);
