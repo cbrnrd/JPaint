@@ -4,20 +4,16 @@ package painter;
  * @version 1.0.0 09 Apr 2017
  */
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -39,8 +35,9 @@ public class Controller {
     @FXML
     private CheckBox eraser;
 
+
     /**
-     * Called automatically by the <code>FXMLLoader</code>
+     * Called automatically by the <code>FXMLLoader</code>.
      * Allows for the actual painting to happen on the <code>Canvas</code>
      * @since 1.0.0
      */
@@ -110,6 +107,16 @@ public class Controller {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(header);
+        alert.setContentText(s);
+        alert.showAndWait();
+    }
+
+    /**
+     * Shows an informational alert with message <code>s</code>
+     * @param s The message to display
+     */
+    public void infoAlertUser(String s){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText(s);
         alert.showAndWait();
     }
