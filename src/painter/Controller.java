@@ -24,12 +24,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.*;
 
+
+/**
+* The class with the FXML functionality methods
+*/
 public class Controller {
 
-    /**
-     * Pass objects through from <code>painter.fxml</code>
-     */
+
     @FXML
     private Canvas canvas;
 
@@ -42,8 +45,10 @@ public class Controller {
     @FXML
     private CheckBox eraser;
 
-
+    // For onSaveAs
     final FileChooser fileChooser = new FileChooser();
+
+    final FileChooser openFileChooser = new FileChooser();
 
 
     /**
@@ -95,7 +100,7 @@ public class Controller {
     public void onSaveAs(){
         Stage stage = new Stage(StageStyle.UTILITY);
         fileChooser.setTitle("Save Image As");
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PNG Files", "*.png");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PNG files", "*.png");
         fileChooser.getExtensionFilters().add(extFilter);
         try {
 
@@ -114,6 +119,36 @@ public class Controller {
 
     }
 
+    /**
+    * Opens a file and displays it on the <code>Canvas</code>
+    * @since 1.0.1
+    */
+    public void onOpen(){
+      GraphicsContext g = canvas.getGraphicsContext2D();
+
+      Stage stage = new Stage(StageStyle.UTILITY);
+      openFileChooser.setTitle("Open Image");
+
+      // PNG file filter
+      FileChooser.ExtensionFilter pngFilter = new FileChooser.ExtensionFilter("PNG files", "*.png");
+      openFileChooser.getExtensionFilters().add(pngFilter);
+
+      // JPEG file filter
+      FileChooser.ExtensionFilter jpegFilter = new FileChooser.ExtensionFilter("JPG files", "*.jpeg, *.jpg");
+      openFileChooser.getExtensionFilters().add(jpegFilter);
+      try{
+        Image openImage = openFileChooser.showOpenDialog(stage);
+
+        if (openImage != null){
+          g.drawImage(openImage, null, null, canvas.getWidth(), canvas.getHeight())
+        } else {
+          alertUser("Please choose a file.")
+        }
+      } catch (Exception e){
+      alertUser(null, "Unable to open file. \nError:" + e.getMessage(), "Error opening", Alert.AlertType.ERROR);
+    }
+
+  }
 
     /**
      * Exits out of the program

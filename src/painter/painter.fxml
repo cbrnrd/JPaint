@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<!-- Main GUI layout file-->
+<!-- Main GUI layout file -->
 <BorderPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="painter.Controller">
     <top>
         <VBox>
@@ -19,6 +19,7 @@
                 <Menu text="File">
                     <MenuItem onAction="#onSave" text="Save" />
                     <MenuItem onAction="#onSaveAs" text="Save As" />
+                    <MenuItem onAction="#onOpen" text="Open" />
                     <MenuItem onAction="#onExit" text="Exit" />
                 </Menu>
                 <Menu text="About">
