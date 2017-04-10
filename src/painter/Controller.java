@@ -1,10 +1,9 @@
 package painter;
 /**
  * @author Carter Brainerd
- * @version 1.0.0 09 Apr 2017
+ * @version 1.0.1 09 Apr 2017
  */
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -12,14 +11,19 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Controller {
 
@@ -64,21 +68,43 @@ public class Controller {
         });
     }
 
+
     /**
      * Saves a <code>png</code> snapshot of the image (as of 1.0.0, it's <code>paint.png</code>)
      * @since 1.0.0
      */
-    //TODO: 4/9/2017 Change this to onSaveAs and have the user choose location and file name
     public void onSave(){
         try{
-            Image snapshot = canvas.snapshot(null, null);
 
-            // Save image to file
+            Image snapshot = canvas.snapshot(null, null);
             ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", new File("paint.png"));
             infoAlertUser("Image saved to " + new File("paint.png").getAbsolutePath());
+
         } catch (Exception e){
-            alertUser(null, "Unable to save. Error:" + e.getMessage(), "Error saving", Alert.AlertType.ERROR);
+            alertUser("Error", "Unable to save. Error:" + e.getMessage(), "Error saving", Alert.AlertType.ERROR);
         }
+    }
+
+
+    /**
+     * Opens a <code>FileChooser</code> window and saves the image as the inputted name
+     * @see javafx.stage.FileChooser
+     * @see javax.imageio.ImageIO
+     * @since 1.0.1
+     */
+    public void onSaveAs(){
+        Stage stage = new Stage(StageStyle.UTILITY);
+        fileChooser.setTitle("Save Image As");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PNG Files", "*.png");
+        fileChooser.getExtensionFilters().add(extFilter);
+        try {
+            Image snapshot = canvas.snapshot(null, null);
+
+            ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", fileChooser.showSaveDialog(stage));
+        } catch (Exception e){
+            alertUser(null, "Unable to save. \nError:" + e.getMessage(), "Error saving", Alert.AlertType.ERROR);
+        }
+
     }
 
 
@@ -90,17 +116,19 @@ public class Controller {
         Platform.exit();
     }
 
+
     /**
      * Displays the "about" message using <code>alertUser</code>
      * @since 1.0.0
      */
     public void displayAbout(){
         String s = "Author: Carter Brainerd\n" +
-                "Painter version: 1.0.0\n" +
+                "Painter version: 1.0.1\n" +
                 "Painter is a free and open source software written in JavaFX.\n" +
                 "See the source here: https://github.com/thecarterb/Painter\n";
         alertUser("About Painter", s, "About Painter", Alert.AlertType.INFORMATION);
     }
+
 
     /**
      * Displays a custom dialog to the end user
@@ -110,7 +138,7 @@ public class Controller {
      * @param s The String to display
      * @param title The title of the alert
      * @param alertType The <code>StageStyle</code> for the dialog
-     * @see   javafx.stage.StageStyle
+     * @see   javafx.scene.control.Alert.AlertType
      */
     public void alertUser(String header, String s, String title, Alert.AlertType alertType){
         Alert alert = new Alert(alertType);
@@ -120,6 +148,7 @@ public class Controller {
         alert.setResizable(false);
         alert.showAndWait();
     }
+
 
     /**
      * Shows an informational alert with message <code>s</code>
