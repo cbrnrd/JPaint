@@ -58,6 +58,7 @@ public class Controller {
      */
     public void initialize() {
         GraphicsContext g = canvas.getGraphicsContext2D();
+        g.setFill(Color.TRANSLUCENT);
 
         canvas.setOnMouseDragged(e -> {
             double size = Double.parseDouble(brushSize.getText());
@@ -137,12 +138,13 @@ public class Controller {
       FileChooser.ExtensionFilter jpegFilter = new FileChooser.ExtensionFilter("JPG files", "*.jpeg, *.jpg");
       openFileChooser.getExtensionFilters().add(jpegFilter);
       try{
-        Image openImage = openFileChooser.showOpenDialog(stage);
+        File openImageFile = openFileChooser.showOpenDialog(stage);
+        Image openImage = new Image(openImageFile.getAbsolutePath());
 
         if (openImage != null){
-          g.drawImage(openImage, null, null, canvas.getWidth(), canvas.getHeight());
+          g.drawImage(openImage, 0, 0);
         } else {
-          alertUser("Please choose a file.");
+          infoAlertUser("Please choose a file.");
         }
       } catch (Exception e){
       alertUser(null, "Unable to open file. \nError:" + e.getMessage(), "Error opening", Alert.AlertType.ERROR);
