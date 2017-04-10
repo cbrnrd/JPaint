@@ -87,7 +87,7 @@ public class Controller {
 
 
     /**
-     * Opens a <code>FileChooser</code> window and saves the image as the inputted name
+     * Opens a <code>FileChooser</code> window and saves the image as the inputted name.png
      * @see javafx.stage.FileChooser
      * @see javax.imageio.ImageIO
      * @since 1.0.1
@@ -98,9 +98,16 @@ public class Controller {
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PNG Files", "*.png");
         fileChooser.getExtensionFilters().add(extFilter);
         try {
-            Image snapshot = canvas.snapshot(null, null);
 
-            ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", fileChooser.showSaveDialog(stage));
+            Image snapshot = canvas.snapshot(null, null);
+            File file = fileChooser.showSaveDialog(stage);
+
+            // This is just a failsafe
+            if (file != null) {
+                ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", file);
+            } else {
+                infoAlertUser("Please choose a filename.");
+            }
         } catch (Exception e){
             alertUser(null, "Unable to save. \nError:" + e.getMessage(), "Error saving", Alert.AlertType.ERROR);
         }
