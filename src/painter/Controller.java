@@ -140,9 +140,9 @@ public class Controller {
         Image openImage = openFileChooser.showOpenDialog(stage);
 
         if (openImage != null){
-          g.drawImage(openImage, null, null, canvas.getWidth(), canvas.getHeight())
+          g.drawImage(openImage, null, null, canvas.getWidth(), canvas.getHeight());
         } else {
-          alertUser("Please choose a file.")
+          alertUser("Please choose a file.");
         }
       } catch (Exception e){
       alertUser(null, "Unable to open file. \nError:" + e.getMessage(), "Error opening", Alert.AlertType.ERROR);
