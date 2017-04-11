@@ -21,7 +21,7 @@ public class Main extends Application {
         double width = screenSize.getWidth();
         double height = screenSize.getHeight();
         Scene scene = new Scene(root, width/1.5, height/1.5);
-        primaryStage.setTitle("Painter");
+        primaryStage.setTitle("JPaint");
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
