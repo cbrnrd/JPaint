@@ -35,6 +35,7 @@ public class util {
      * <p></p>
      * Simpler than {@link #alertUser(String, String, String, Alert.AlertType)}
      * @param s The message to display
+     * @param header The header of the alert (usually a summary)
      */
     public static void infoAlert(String s, String header){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -43,6 +44,11 @@ public class util {
         alert.showAndWait();
     }
 
+    /**
+     * Display an error alert with message <code>s</code>
+     * @param s The message to display
+     * @param header The header of the error (usually a summary)
+     */
     public static void errorAlert(String s, String header){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setContentText(s);
@@ -50,6 +56,10 @@ public class util {
         alert.showAndWait();
     }
 
+    /**
+     * Gets the current screen size
+     * @return Dimension
+     */
     public static Dimension getScreenSize(){
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
