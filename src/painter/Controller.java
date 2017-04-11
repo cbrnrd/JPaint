@@ -69,7 +69,9 @@ public class Controller {
      */
     public void initialize() {
         GraphicsContext g = canvas.getGraphicsContext2D();
+
         setBrushBrush();
+
         // Get screen dimensions and set the canvas accordingly
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         double screenWidth = screenSize.getWidth();
@@ -210,10 +212,10 @@ public class Controller {
      */
     public void displayAbout(){
         String s = "Author: Carter Brainerd\n" +
-                "Painter version: 1.0.2\n" +
-                "Painter is a free and open source software written in JavaFX.\n" +
-                "See the source here: https://github.com/thecarterb/Painter\n";
-        alertUser("About Painter", s, "About Painter", Alert.AlertType.INFORMATION);
+                "JPaint version: 1.0.2\n" +
+                "JPaint is a free and open source software written in JavaFX.\n" +
+                "See the source here: https://github.com/thecarterb/JPaint\n";
+        alertUser("About JPaint", s, "About JPaint", Alert.AlertType.INFORMATION);
     }
 
     /**
