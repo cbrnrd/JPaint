@@ -1,6 +1,7 @@
 # All IntelliJ produced stuff
 out
 .idea
-Painter.iml
-
+*.iml
 META-INF
+*.class
+
