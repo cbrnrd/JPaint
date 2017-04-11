@@ -1,4 +1,4 @@
-package painter;
+package jpaint;
 
 import javafx.application.Application;
 

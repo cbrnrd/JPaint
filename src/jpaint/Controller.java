@@ -1,4 +1,4 @@
-package painter;
+package jpaint;
 /**
  * @author Carter Brainerd
  * @version 1.0.2 10 Apr 2017
@@ -29,12 +29,14 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.*;
+import static jpaint.util.*;
+
 
 
 /**
-* The class with the FXML functionality methods
-*/
-@SuppressWarnings("JavaDoc")
+ * The class with the FXML functionality methods
+ */
+@SuppressWarnings("JavaDoc") // For custom tags
 public class Controller {
 
 
@@ -54,10 +56,12 @@ public class Controller {
     private MenuButton brushSelectButton;
 
     // For onSaveAs
-    final FileChooser fileChooser = new FileChooser();
+    private final FileChooser fileChooser = new FileChooser();
 
-    final FileChooser openFileChooser = new FileChooser();
+    // For onOpen
+    private final FileChooser openFileChooser = new FileChooser();
 
+    // For setBrushBrush and setBrushPencil
     private boolean isBrushBrush;
 
 
@@ -73,7 +77,7 @@ public class Controller {
         setBrushBrush();
 
         // Get screen dimensions and set the canvas accordingly
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension screenSize = getScreenSize();
         double screenWidth = screenSize.getWidth();
         double screenHeight = screenSize.getHeight();
         canvas.setHeight(screenHeight/1.5);
@@ -127,7 +131,7 @@ public class Controller {
 
             Image snapshot = canvas.snapshot(null, null);
             ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", new File("paint.png"));
-            infoAlertUser("Image saved to " + new File("paint.png").getAbsolutePath());
+            infoAlert("Image saved to " + new File("paint.png").getAbsolutePath(), "Save successful.");
 
         } catch (Exception e){
             alertUser("Error", "Unable to save. Error:" + e.getMessage(), "Error saving", Alert.AlertType.ERROR);
@@ -155,7 +159,7 @@ public class Controller {
             if (file != null) {
                 ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", file);
             } else {
-                infoAlertUser("Please choose a filename.");
+                infoAlert("Please choose a filename.", null);
             }
         } catch (Exception e){
             alertUser(null, "Unable to save. \nError:" + e.getMessage(), "Error saving", Alert.AlertType.ERROR);
@@ -169,33 +173,33 @@ public class Controller {
      * @custom.Updated 1.0.2
      */
     public void onOpen(){
-      GraphicsContext g = canvas.getGraphicsContext2D();
+        GraphicsContext g = canvas.getGraphicsContext2D();
 
-      Stage stage = new Stage(StageStyle.UTILITY);
-      openFileChooser.setTitle("Open Image");
+        Stage stage = new Stage(StageStyle.UTILITY);
+        openFileChooser.setTitle("Open Image");
 
-      // PNG file filter
-      FileChooser.ExtensionFilter pngFilter = new FileChooser.ExtensionFilter("PNG files", "*.png");
-      openFileChooser.getExtensionFilters().add(pngFilter);
+        // PNG file filter
+        FileChooser.ExtensionFilter pngFilter = new FileChooser.ExtensionFilter("PNG files", "*.png");
+        openFileChooser.getExtensionFilters().add(pngFilter);
 
-      // JPEG file filter
-      FileChooser.ExtensionFilter jpegFilter = new FileChooser.ExtensionFilter("JPG files", "*.jpeg, *.jpg");
-      openFileChooser.getExtensionFilters().add(jpegFilter);
-      try{
-        File openImageFile = openFileChooser.showOpenDialog(stage);
-        InputStream fileStream = new FileInputStream(openImageFile);
-        Image openImage = new Image(fileStream);
+        // JPEG file filter
+        FileChooser.ExtensionFilter jpegFilter = new FileChooser.ExtensionFilter("JPG files", "*.jpeg, *.jpg");
+        openFileChooser.getExtensionFilters().add(jpegFilter);
+        try{
+            File openImageFile = openFileChooser.showOpenDialog(stage);
+            InputStream fileStream = new FileInputStream(openImageFile);
+            Image openImage = new Image(fileStream);
 
-        if (openImageFile != null){
-          g.drawImage(openImage, 0, 0);
-        } else {
-          infoAlertUser("Please choose a file.");
+            if (openImageFile != null){
+                g.drawImage(openImage, 0, 0);
+            } else {
+                infoAlert("Please choose a file.", null);
+            }
+        } catch (Exception e){
+            alertUser(null, "Unable to open file. \nError:" + e.getMessage(), "Error opening", Alert.AlertType.ERROR);
         }
-      } catch (Exception e){
-      alertUser(null, "Unable to open file. \nError:" + e.getMessage(), "Error opening", Alert.AlertType.ERROR);
-    }
 
-  }
+    }
 
     /**
      * Exits out of the program
@@ -207,7 +211,7 @@ public class Controller {
 
 
     /**
-     * Displays the "about" message using {@link #alertUser(String, String, String, Alert.AlertType)}
+     * Displays the "about" message using <code>Util.alertUser(String, String, String, Alert.AlertType)</code>
      * @since 1.0.0
      */
     public void displayAbout(){
@@ -236,35 +240,4 @@ public class Controller {
         brushSelectButton.setText("Pencil");
     }
 
-    /**
-     * Displays a custom dialog to the end user
-     *
-     * @since 1.0.0
-     * @param header The header text of the alert
-     * @param s The String to display
-     * @param title The title of the alert
-     * @param alertType The <code>StageStyle</code> for the dialog
-     * @see   javafx.scene.control.Alert.AlertType
-     */
-    public void alertUser(String header, String s, String title, Alert.AlertType alertType){
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(s);
-        alert.setResizable(false);
-        alert.showAndWait();
-    }
-
-
-    /**
-     * Shows an informational alert with message <code>s</code>
-     * <p></p>
-     * Simpler than {@link #alertUser(String, String, String, Alert.AlertType)}
-     * @param s The message to display
-     */
-    public void infoAlertUser(String s){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText(s);
-        alert.showAndWait();
-    }
 }

@@ -15,7 +15,7 @@
 
 <!-- Main GUI layout file -->
 
-<BorderPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="painter.Controller">
+<BorderPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jpaint.Controller">
     <top>
         <VBox>
             <MenuBar>
@@ -26,7 +26,7 @@
                     <MenuItem onAction="#onExit" text="Exit" />
                 </Menu>
                 <Menu text="About">
-                    <MenuItem onAction="#displayAbout" text="About Painter" />
+                    <MenuItem onAction="#displayAbout" text="About JPaint" />
                 </Menu>
             </MenuBar>
 
@@ -34,12 +34,12 @@
                 <HBox alignment="CENTER" spacing="5">
                     <TextField fx:id="brushSize" text="18" />
                     <ColorPicker fx:id="colorPicker" />
-               <MenuButton fx:id="brushSelectButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Brush">
-                 <items>
-                   <MenuItem mnemonicParsing="false" text="Brush" onAction="#setBrushBrush"/>
-                   <MenuItem mnemonicParsing="false" text="Pencil" onAction="#setBrushPencil" />
-                 </items>
-               </MenuButton>
+                    <MenuButton fx:id="brushSelectButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Brush">
+                        <items>
+                            <MenuItem mnemonicParsing="false" text="Brush" onAction="#setBrushBrush"/>
+                            <MenuItem mnemonicParsing="false" text="Pencil" onAction="#setBrushPencil" />
+                        </items>
+                    </MenuButton>
                     <CheckBox fx:id="eraser" text="Eraser" />
                 </HBox>
             </ToolBar>
