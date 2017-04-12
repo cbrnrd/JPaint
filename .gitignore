@@ -5,4 +5,7 @@ Painter.iml
 
 # Compiling things
 .class
+*.iml
 META-INF
+*.class
+

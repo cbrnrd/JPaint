@@ -1,8 +1,10 @@
 package jpaint;
 
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 
 import java.awt.*;
+import java.awt.Label;
+import java.util.Optional;
 
 /**
  * A class containing utility methods for <code>Controller</code>
@@ -17,7 +19,7 @@ public class util {
      * @param header The header text of the alert
      * @param s The String to display
      * @param title The title of the alert
-     * @param alertType The <code>StageStyle</code> for the dialog
+     * @param alertType The <code>Alert.AlertType</code> for the dialog
      * @see   javafx.scene.control.Alert.AlertType
      */
     public static void alertUser(String header, String s, String title, Alert.AlertType alertType){
@@ -54,6 +56,25 @@ public class util {
         alert.setContentText(s);
         alert.setHeaderText(header);
         alert.showAndWait();
+    }
+
+    public static void setGraphicToError(Alert alert){
+        javafx.scene.control.Label label = new javafx.scene.control.Label();
+        label.getStyleClass().addAll("alert", "error", "dialog-pane");
+        alert.setGraphic(label);
+    }
+
+    public static boolean confirmExit(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Would you like to exit?");
+        alert.setHeaderText("Exit");
+        util.setGraphicToError(alert);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

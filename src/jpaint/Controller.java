@@ -175,7 +175,7 @@ public class Controller {
     public void onOpen(){
         GraphicsContext g = canvas.getGraphicsContext2D();
 
-        Stage stage = new Stage(StageStyle.UTILITY);
+        Stage stage = new Stage(StageStyle.UNDECORATED);
         openFileChooser.setTitle("Open Image");
 
         // PNG file filter
@@ -202,16 +202,21 @@ public class Controller {
     }
 
     /**
-     * Exits out of the program
+     * Gets a confirmation, then exits out of the program
      * @since 1.0.0
      */
     public void onExit(){
-        Platform.exit();
+        boolean result = confirmExit();
+        if(result) {
+            Platform.exit();
+        } else {
+            return;
+        }
     }
 
 
     /**
-     * Displays the "about" message using <code>Util.alertUser(String, String, String, Alert.AlertType)</code>
+     * Displays the "about" message using <code>util.alertUser(String, String, String, Alert.AlertType)</code>
      * @since 1.0.0
      */
     public void displayAbout(){
