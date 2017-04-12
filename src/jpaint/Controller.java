@@ -134,7 +134,7 @@ public class Controller {
             infoAlert("Image saved to " + new File("paint.png").getAbsolutePath(), "Save successful.");
 
         } catch (Exception e){
-            alertUser("Error", "Unable to save. Error:" + e.getMessage(), "Error saving", Alert.AlertType.ERROR);
+            errorAlert("Unable to save. Error:" + e.getMessage(), "Error");
         }
     }
 
@@ -162,7 +162,7 @@ public class Controller {
                 infoAlert("Please choose a filename.", null);
             }
         } catch (Exception e){
-            alertUser(null, "Unable to save. \nError:" + e.getMessage(), "Error saving", Alert.AlertType.ERROR);
+            errorAlert("Error saving file.\nError: " + e.getMessage(), "Error");
         }
 
     }

@@ -3,4 +3,6 @@ out
 .idea
 Painter.iml
 
+# Compiling things
+.class
 META-INF
