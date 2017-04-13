@@ -55,6 +55,9 @@ public class util {
         alert.showAndWait();
     }
 
+    /**
+     * Used only for {@link #noWinDecor(Stage)}
+     */
     private static class WindowButtons extends HBox {
 
         public WindowButtons() {
@@ -112,12 +115,20 @@ public class util {
         alert.showAndWait();
     }
 
+    /**
+     * Changed the default icon of <code>alert</code> to the JavaFX default "error" icon
+     * @param alert The alert to change the icon of
+     */
     public static void setGraphicToError(Alert alert){
         javafx.scene.control.Label label = new javafx.scene.control.Label();
         label.getStyleClass().addAll("alert", "error", "dialog-pane");
         alert.setGraphic(label);
     }
 
+    /**
+     * Display a custom <code>CONFIRMATION</code> dialog when exiting the program
+     * @return boolean - Whether or not "YES" is clicked or not. True if yes, false if no.
+     */
     public static boolean confirmExit(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Would you like to exit?");

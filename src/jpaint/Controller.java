@@ -216,7 +216,7 @@ public class Controller {
 
 
     /**
-     * Displays the "about" message using <code>util.alertUser(String, String, String, Alert.AlertType)</code>
+     * Displays the "about" message using {@link util#alertUser(String, String, String, Alert.AlertType)}
      * @since 1.0.0
      */
     public void displayAbout(){
