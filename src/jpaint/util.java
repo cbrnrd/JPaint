@@ -1,6 +1,15 @@
 package jpaint;
 
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.awt.*;
 import java.awt.Label;
@@ -44,6 +53,51 @@ public class util {
         alert.setContentText(s);
         alert.setHeaderText(header);
         alert.showAndWait();
+    }
+
+    private static class WindowButtons extends HBox {
+
+        public WindowButtons() {
+            Button closeBtn = new Button("X");
+
+            closeBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    Platform.exit();
+                }
+            });
+
+            this.getChildren().add(closeBtn);
+        }
+    }
+
+    /**
+     * Takes away all OS specific window borders (Minimize, Maximize, and Close buttons, etc.)
+     * <p> </p>
+     * This will eventually be used for a splash screen
+     * @param initStage the stage to make have no window borders
+     * @since 1.0.2
+     */
+    public static void noWinDecor(Stage initStage){
+        initStage.initStyle(StageStyle.UNDECORATED);
+
+        BorderPane borderPane = new BorderPane();
+        borderPane.setStyle("-fx-background-color: grey;");
+
+        ToolBar toolBar = new ToolBar();
+
+        int height = 25;
+        toolBar.setPrefHeight(height);
+        toolBar.setMinHeight(height);
+        toolBar.setMaxHeight(height);
+        toolBar.getItems().add(new WindowButtons());
+
+        borderPane.setTop(toolBar);
+
+        initStage.setScene(new Scene(borderPane, 300, 250));
+        initStage.show();
+
     }
 
     /**
