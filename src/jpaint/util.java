@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.awt.*;
-import java.awt.Label;
 import java.util.Optional;
 
 /**
@@ -31,7 +30,7 @@ public class util {
      * @param alertType The <code>Alert.AlertType</code> for the dialog
      * @see   javafx.scene.control.Alert.AlertType
      */
-    public static void alertUser(String header, String s, String title, Alert.AlertType alertType){
+    static void alertUser(String header, String s, String title, Alert.AlertType alertType){
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(header);
@@ -48,7 +47,7 @@ public class util {
      * @param s The message to display
      * @param header The header of the alert (usually a summary)
      */
-    public static void infoAlert(String s, String header){
+    static void infoAlert(String s, String header){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText(s);
         alert.setHeaderText(header);
@@ -60,15 +59,11 @@ public class util {
      */
     private static class WindowButtons extends HBox {
 
-        public WindowButtons() {
+        WindowButtons() {
             Button closeBtn = new Button("X");
 
-            closeBtn.setOnAction(new EventHandler<ActionEvent>() {
-
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    Platform.exit();
-                }
+            closeBtn.setOnAction(e -> {
+                Platform.exit(); 
             });
 
             this.getChildren().add(closeBtn);
@@ -82,7 +77,7 @@ public class util {
      * @param initStage the stage to make have no window borders
      * @since 1.0.2
      */
-    public static void noWinDecor(Stage initStage){
+    static void noWinDecor(Stage initStage){
         initStage.initStyle(StageStyle.UNDECORATED);
 
         BorderPane borderPane = new BorderPane();
@@ -108,7 +103,7 @@ public class util {
      * @param s The message to display
      * @param header The header of the error (usually a summary)
      */
-    public static void errorAlert(String s, String header){
+    static void errorAlert(String s, String header){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setContentText(s);
         alert.setHeaderText(header);
@@ -119,7 +114,7 @@ public class util {
      * Changed the default icon of <code>alert</code> to the JavaFX default "error" icon
      * @param alert The alert to change the icon of
      */
-    public static void setGraphicToError(Alert alert){
+    private static void setGraphicToError(Alert alert){
         javafx.scene.control.Label label = new javafx.scene.control.Label();
         label.getStyleClass().addAll("alert", "error", "dialog-pane");
         alert.setGraphic(label);
@@ -129,28 +124,21 @@ public class util {
      * Display a custom <code>CONFIRMATION</code> dialog when exiting the program
      * @return boolean - Whether or not "YES" is clicked or not. True if yes, false if no.
      */
-    public static boolean confirmExit(){
+    static boolean confirmExit(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Would you like to exit?");
         alert.setHeaderText("Exit");
         util.setGraphicToError(alert);
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK){
-            return true;
-        } else {
-            return false;
-        }
+        return result.isPresent() && result.get() == ButtonType.OK;
     }
 
     /**
      * Gets the current screen size
      * @return Dimension
      */
-    public static Dimension getScreenSize(){
-
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        return screenSize;
-
+    static Dimension getScreenSize(){
+        return Toolkit.getDefaultToolkit().getScreenSize();
     }
 
 }
