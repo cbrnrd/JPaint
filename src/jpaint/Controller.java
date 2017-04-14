@@ -6,29 +6,22 @@ package jpaint;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.paint.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
+import jpaint.exceptions.AlertException;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.Paint;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.*;
+
 import static jpaint.util.*;
 
 
@@ -93,8 +86,9 @@ public class Controller {
             if (eraser.isSelected()) {
                 g.clearRect(x, y, size, size);
             } else {
+
                 g.setFill(colorPicker.getValue());
-                if(isBrushBrush) {
+                if (isBrushBrush) {
                     g.fillOval(x, y, size, size);
                 } else {
                     g.fillRect(x, y, size, size);
@@ -134,7 +128,11 @@ public class Controller {
             infoAlert("Image saved to " + new File("paint.png").getAbsolutePath(), "Save successful.");
 
         } catch (Exception e){
-            errorAlert("Unable to save. Error:" + e.getMessage(), "Error");
+            try {
+                errorAlert("Unable to save. Error:" + e.getMessage(), "Error");
+            } catch (AlertException ae){
+                ae.printStackTrace();
+            }
         }
     }
 
@@ -162,7 +160,11 @@ public class Controller {
                 infoAlert("Please choose a filename.", null);
             }
         } catch (Exception e){
-            errorAlert("Error saving file.\nError: " + e.getMessage(), "Error");
+            try {
+                errorAlert("Error saving file.\nError: " + e.getMessage(), "Error");
+            } catch (AlertException ae){
+                ae.printStackTrace();
+            }
         }
 
     }
@@ -175,7 +177,7 @@ public class Controller {
     public void onOpen(){
         GraphicsContext g = canvas.getGraphicsContext2D();
 
-        Stage stage = new Stage(StageStyle.UNDECORATED);
+        Stage stage = new Stage(StageStyle.UTILITY);
         openFileChooser.setTitle("Open Image");
 
         // PNG file filter
@@ -196,27 +198,26 @@ public class Controller {
                 infoAlert("Please choose a file.", null);
             }
         } catch (Exception e){
-            alertUser(null, "Unable to open file. \nError:" + e.getMessage(), "Error opening", Alert.AlertType.ERROR);
+            try {
+                alertUser(null, "Unable to open file. \nError:" + e.getMessage(), "Error opening", Alert.AlertType.ERROR);
+            } catch (AlertException ae){
+                ae.printStackTrace();
+            }
         }
 
     }
 
     /**
-     * Gets a confirmation, then exits out of the program
+     * Exits out of the program
      * @since 1.0.0
      */
     public void onExit(){
-        boolean result = confirmExit();
-        if(result) {
-            Platform.exit();
-        } else {
-            return;
-        }
+        Platform.exit();
     }
 
 
     /**
-     * Displays the "about" message using {@link util#alertUser(String, String, String, Alert.AlertType)}
+     * Displays the "about" message using <code>Util.alertUser(String, String, String, Alert.AlertType)</code>
      * @since 1.0.0
      */
     public void displayAbout(){
@@ -224,7 +225,11 @@ public class Controller {
                 "JPaint version: 1.0.2\n" +
                 "JPaint is a free and open source software written in JavaFX.\n" +
                 "See the source here: https://github.com/thecarterb/JPaint\n";
-        alertUser("About JPaint", s, "About JPaint", Alert.AlertType.INFORMATION);
+        try {
+            alertUser("About JPaint", s, "About JPaint", Alert.AlertType.INFORMATION);
+        } catch (AlertException ae){
+            ae.printStackTrace();
+        }
     }
 
     /**
