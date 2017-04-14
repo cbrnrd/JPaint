@@ -26,6 +26,7 @@
                     <MenuItem onAction="#onExit" text="Exit" />
                 </Menu>
                 <Menu text="About">
+                    <MenuItem onAction="#openSource" text="View source code" />
                     <MenuItem onAction="#displayAbout" text="About JPaint" />
                 </Menu>
             </MenuBar>

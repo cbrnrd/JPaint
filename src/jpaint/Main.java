@@ -9,6 +9,11 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 
+import jpaint.*;
+
+import static jpaint.util.log;
+import static jpaint.util.LogType;
+
 /**
  * The class that loads the FXML file and shows it
  */
@@ -24,6 +29,7 @@ public class Main extends Application {
         primaryStage.setTitle("JPaint");
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
+        log("primaryStage.show() successful", LogType.SUCCESS);
         primaryStage.show();
     }
 

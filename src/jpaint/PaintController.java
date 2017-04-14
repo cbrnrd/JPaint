@@ -20,7 +20,11 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 
 import static jpaint.util.*;
 
@@ -56,6 +60,7 @@ public class PaintController {
 
     // For setBrushBrush and setBrushPencil
     private boolean isBrushBrush;
+
 
 
     /**
@@ -113,6 +118,7 @@ public class PaintController {
             }
         });
 
+
     }
 
 
@@ -169,6 +175,7 @@ public class PaintController {
 
     }
 
+
     /**
      * Opens a file and displays it on the <code>Canvas</code>
      * @since 1.0.1
@@ -207,6 +214,7 @@ public class PaintController {
 
     }
 
+
     /**
      * Exits out of the program
      * @since 1.0.0
@@ -232,6 +240,27 @@ public class PaintController {
         }
     }
 
+
+    /**
+     * This does nothing yet
+     * <p></p>
+     * In the future, this will open up a github link to the source code
+     * in the default web browser
+     */
+    public void openSource() throws AlertException, IOException{
+        if(Desktop.isDesktopSupported()){
+            try {
+                Desktop.getDesktop().browse(new URI("https://github.com/thecarterb/JPaint"));
+            } catch (IOException | URISyntaxException e){
+                errorAlert("Unable to open URL", "Error");
+                log(e.getMessage(), LogType.ERROR);
+            }
+        } else {
+            System.err.println("Unable to open source.");
+        }
+    }
+
+
     /**
      * Setter for brush type (Changes it to circle)
      * @since 1.0.2
@@ -241,6 +270,7 @@ public class PaintController {
         brushSelectButton.setText("Brush");
     }
 
+
     /**
      * Setter for brush type (Changes it to square)
      * @since 1.0.2
@@ -249,5 +279,7 @@ public class PaintController {
         isBrushBrush  = false;
         brushSelectButton.setText("Pencil");
     }
+
+
 
 }
