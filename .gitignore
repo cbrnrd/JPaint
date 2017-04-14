@@ -9,3 +9,5 @@ Painter.iml
 META-INF
 *.class
 
+# A script I wrote because I'm lazy
+commit
