@@ -74,6 +74,14 @@ public class util {
 
 
     /**
+     * Defines the kind of message displayed in the log
+     */
+    enum LogType {
+        ERROR, INFO, WARNING, SUCCESS
+    }
+
+
+    /**
      * Writes a message to <code>.jpaint_log</code> with {@link jpaint.util.LogType} <code>logType</code>}.
      * This has no association to {@link java.util.logging}
      * @param message The message to output.
@@ -98,8 +106,8 @@ public class util {
 
         if (logtype == LogType.ERROR) logmsg += " [ERROR]: " + message;
         else if (logtype == LogType.INFO) logmsg += " [INFO]: " + message;
-        else if (logtype == LogType.WARNING) logmsg += " [WARN]" + message;
-        else if (logtype == LogType.SUCCESS) logmsg += " [SUCCESS]" + message;
+        else if (logtype == LogType.WARNING) logmsg += " [WARN]: " + message;
+        else if (logtype == LogType.SUCCESS) logmsg += " [SUCCESS]: " + message;
         else logmsg += message;
 
         // File IO writers
@@ -153,10 +161,6 @@ public class util {
     }
 
 
-    /**
-     * Defines the kind of message displayed in the log
-     */
-    enum LogType { ERROR, INFO, WARNING, SUCCESS }
 
 
 
