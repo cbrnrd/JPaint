@@ -7,7 +7,9 @@ Painter.iml
 .class
 *.iml
 META-INF
-*.class
 
 # A script I wrote because I'm lazy
 commit
+
+# Logs
+.jpaint_log
