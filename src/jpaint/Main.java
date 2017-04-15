@@ -1,7 +1,6 @@
 package jpaint;
 
 import javafx.application.Application;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,10 +8,8 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 
-import jpaint.*;
-
-import static jpaint.util.log;
 import static jpaint.util.LogType;
+import static jpaint.util.log;
 
 /**
  * The class that loads the FXML file and shows it
@@ -29,7 +26,8 @@ public class Main extends Application {
         primaryStage.setTitle("JPaint");
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
-        log("primaryStage.show() successful", LogType.SUCCESS);
+        primaryStage.getIcons().add(new javafx.scene.image.Image("https://cdn4.iconfinder.com/data/icons/proglyphs-design/512/Paint_Bucket-512.png"));
+        log("Showing primaryStage", LogType.INFO);
         primaryStage.show();
     }
 
