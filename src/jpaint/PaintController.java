@@ -223,6 +223,7 @@ public class PaintController {
      * @since 1.0.0
      */
     public void onExit(){
+        log("Exiting program", LogType.INFO);
         Platform.exit();
     }
 

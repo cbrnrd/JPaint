@@ -18,6 +18,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        log("---------------------- NEW PROGRAM RUN ----------------------", LogType.INFO);
         Parent root = FXMLLoader.load(getClass().getResource("painter.fxml"));
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         double width = screenSize.getWidth();
