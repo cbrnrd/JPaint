@@ -25,7 +25,6 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-
 import static jpaint.util.*;
 
 
@@ -132,10 +131,12 @@ public class PaintController {
             Image snapshot = canvas.snapshot(null, null);
             ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", new File("paint.png"));
             infoAlert("Image saved to " + new File("paint.png").getAbsolutePath(), "Save successful.");
+            log("Image saved to " + new File("paint.png").getAbsolutePath(), LogType.SUCCESS);
 
         } catch (Exception e){
             try {
                 errorAlert("Unable to save. Error:" + e.getMessage(), "Error");
+                log("Unable to save. Error:" + e.getStackTrace(), LogType.ERROR);
             } catch (AlertException ae){
                 ae.printStackTrace();
             }
@@ -158,16 +159,19 @@ public class PaintController {
 
             Image snapshot = canvas.snapshot(null, null);
             File file = fileChooser.showSaveDialog(stage);
+            String filepath = file.getAbsolutePath();
 
             // This is just a failsafe
             if (file != null) {
                 ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", file);
+                log("Image saved to " + filepath, LogType.SUCCESS);
             } else {
                 infoAlert("Please choose a filename.", null);
             }
         } catch (Exception e){
             try {
                 errorAlert("Error saving file.\nError: " + e.getMessage(), "Error");
+                log("Unable to save file. Error: " + e.getStackTrace(), LogType.ERROR);
             } catch (AlertException ae){
                 ae.printStackTrace();
             }
@@ -203,13 +207,10 @@ public class PaintController {
                 g.drawImage(openImage, 0, 0);
             } else {
                 infoAlert("Please choose a file.", null);
+                log("Tried to open a file with a blank filename", LogType.WARNING);
             }
         } catch (Exception e){
-            try {
-                alertUser(null, "Unable to open file. \nError:" + e.getMessage(), "Error opening", Alert.AlertType.ERROR);
-            } catch (AlertException ae){
-                ae.printStackTrace();
-            }
+            log("Couldn't open file. Error: " + e.getStackTrace().toString(), LogType.ERROR);
         }
 
     }
@@ -230,22 +231,22 @@ public class PaintController {
      */
     public void displayAbout(){
         String s = "Author: Carter Brainerd\n" +
-                "JPaint version: 1.0.2\n" +
+                "JPaint version: 1.0.3\n" +
                 "JPaint is a free and open source software written in JavaFX.\n" +
                 "See the source here: https://github.com/thecarterb/JPaint\n";
         try {
             alertUser("About JPaint", s, "About JPaint", Alert.AlertType.INFORMATION);
         } catch (AlertException ae){
-            ae.printStackTrace();
+            log(ae.toString(), LogType.ERROR);
         }
     }
 
 
     /**
-     * This does nothing yet
-     * <p></p>
-     * In the future, this will open up a github link to the source code
-     * in the default web browser
+     * Opens a GitHub link to the source code of JPaint
+     * @since 1.0.3
+     * @throws AlertException If the error alert can't show
+     * @throws IOException If the GitHub URL wasn't reachable
      */
     public void openSource() throws AlertException, IOException{
         if(Desktop.isDesktopSupported()){
@@ -257,6 +258,7 @@ public class PaintController {
             }
         } else {
             System.err.println("Unable to open source.");
+            log("Desktops are not supported on your OS!", LogType.WARNING);
         }
     }
 
@@ -281,5 +283,14 @@ public class PaintController {
     }
 
 
-
+    /**
+     * Clears the <code>canvas</code>
+     *
+     * @since 1.0.3
+     */
+    public void onClear() {
+        GraphicsContext g = canvas.getGraphicsContext2D();
+        g.clearRect(0, 0, 10000, 10000);
+        log("Canvas cleared", LogType.INFO);
+    }
 }

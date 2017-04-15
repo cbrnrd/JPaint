@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- Main GUI layout file -->
+
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ColorPicker?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
-<!-- Main GUI layout file -->
-
-<BorderPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jpaint.PaintController">
+<BorderPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.91"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="jpaint.PaintController">
     <top>
         <VBox>
             <MenuBar>
@@ -37,10 +30,12 @@
                     <ColorPicker fx:id="colorPicker" />
                     <MenuButton fx:id="brushSelectButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Brush">
                         <items>
-                            <MenuItem mnemonicParsing="false" text="Brush" onAction="#setBrushBrush"/>
-                            <MenuItem mnemonicParsing="false" text="Pencil" onAction="#setBrushPencil" />
+                            <MenuItem mnemonicParsing="false" onAction="#setBrushBrush" text="Brush"/>
+                            <MenuItem mnemonicParsing="false" onAction="#setBrushPencil" text="Pencil"/>
                         </items>
                     </MenuButton>
+                    <Button fx:id="clearButton" mnemonicParsing="false" onAction="#onClear" prefHeight="25.0"
+                            prefWidth="52.0" text="Clear" textAlignment="CENTER"/>
                     <CheckBox fx:id="eraser" text="Eraser" />
                 </HBox>
             </ToolBar>

@@ -69,10 +69,7 @@ public class util {
      * @return Dimension
      */
     public static Dimension getScreenSize(){
-
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        return screenSize;
-
+        return Toolkit.getDefaultToolkit().getScreenSize();
     }
 
 
@@ -81,6 +78,7 @@ public class util {
      * This has no association to {@link java.util.logging}
      * @param message The message to output.
      * @param logtype the type of message <code>message</code> is.
+     * @since 1.0.3
      */
     public static void log(String message, LogType logtype){
 
@@ -96,21 +94,15 @@ public class util {
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
         String logmsg = "";
         logmsg += '[' + timeStamp + ']';
-        switch (logtype) {
-            case ERROR:
-                logmsg += "[ERROR]: " + message;
-
-            case INFO:
-                logmsg += "[INFO]: " + message;
-
-            case WARNING:
-                logmsg += "[WARN]: " + message;
-
-            case SUCCESS:
-                logmsg += "[SUCCESS]: " + message;
-        }
 
 
+        if (logtype == LogType.ERROR) logmsg += " [ERROR]: " + message;
+        else if (logtype == LogType.INFO) logmsg += " [INFO]: " + message;
+        else if (logtype == LogType.WARNING) logmsg += " [WARN]" + message;
+        else if (logtype == LogType.SUCCESS) logmsg += " [SUCCESS]" + message;
+        else logmsg += message;
+
+        // File IO writers
         BufferedWriter bw = null;
         FileWriter fw = null;
         PrintWriter out = null;
