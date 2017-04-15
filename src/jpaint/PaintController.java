@@ -1,8 +1,5 @@
 package jpaint;
-/**
- * @author Carter Brainerd
- * @version 1.0.2 10 Apr 2017
- */
+
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
@@ -31,6 +28,10 @@ import static jpaint.util.*;
 
 /**
  * The class with the FXML functionality methods
+ *
+ * @author Carter Brainerd
+ * @version 1.0.3 14 Apr 2017
+ *
  */
 @SuppressWarnings("JavaDoc") // For custom tags
 public class PaintController {
@@ -166,12 +167,12 @@ public class PaintController {
                 ImageIO.write(SwingFXUtils.fromFXImage(snapshot, null), "png", file);
                 log("Image saved to " + filepath, LogType.SUCCESS);
             } else {
-                infoAlert("Please choose a filename.", null);
+                log("Saving action cancelled", LogType.WARNING);
             }
         } catch (Exception e){
             try {
                 errorAlert("Error saving file.\nError: " + e.getMessage(), "Error");
-                log("Unable to save file. Error: " + e.getStackTrace(), LogType.ERROR);
+                log("Unable to save file. Error: " + e.getStackTrace().toString(), LogType.ERROR);
             } catch (AlertException ae){
                 ae.printStackTrace();
             }
@@ -202,11 +203,12 @@ public class PaintController {
             File openImageFile = openFileChooser.showOpenDialog(stage);
             InputStream fileStream = new FileInputStream(openImageFile);
             Image openImage = new Image(fileStream);
+            String filepath = openImageFile.getAbsolutePath();
 
             if (openImageFile != null){
                 g.drawImage(openImage, 0, 0);
+                log("Opened " + filepath, LogType.SUCCESS);
             } else {
-                infoAlert("Please choose a file.", null);
                 log("Tried to open a file with a blank filename", LogType.WARNING);
             }
         } catch (Exception e){
@@ -226,7 +228,7 @@ public class PaintController {
 
 
     /**
-     * Displays the "about" message using <code>Util.alertUser(String, String, String, Alert.AlertType)</code>
+     * Displays the "about" message using {@link util#alertUser(String, String, String, Alert.AlertType)}
      * @since 1.0.0
      */
     public void displayAbout(){
@@ -252,6 +254,7 @@ public class PaintController {
         if(Desktop.isDesktopSupported()){
             try {
                 Desktop.getDesktop().browse(new URI("https://github.com/thecarterb/JPaint"));
+                log("Source code successfully opened in browser", LogType.SUCCESS);
             } catch (IOException | URISyntaxException e){
                 errorAlert("Unable to open URL", "Error");
                 log(e.getMessage(), LogType.ERROR);

@@ -125,7 +125,7 @@ public class util {
 
         } catch (IOException e) {
 
-            e.printStackTrace();
+            log(e.getStackTrace().toString(), LogType.ERROR);
 
         } finally {
             try {
