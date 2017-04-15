@@ -122,6 +122,7 @@ public class util {
             out = new PrintWriter(bw);
 
             out.println(logmsg);
+            bw.close();
 
         } catch (IOException e) {
 
