@@ -15,7 +15,7 @@ You may also run it by running the following commands:
 4. `java jpaint.Main`
 
 ## Documentation
-The javadoc documentation for JPaint is available at [thecarterb.github.io/JPaint](thecarterb.github.io/JPaint)
+The javadoc documentation for JPaint is available at [thecarterb.github.io/JPaint](https://thecarterb.github.io/JPaint)
 
 ## Contributing
 Feel free to contribute to JPaint in any way you feel is useful to the project. In your Pull Request, make sure you say what your contribution does for the project.
