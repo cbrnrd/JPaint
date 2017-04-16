@@ -6,7 +6,7 @@ A simple (but not really) painting application written in JavaFX
 There is a precompiled `JAR` file in the `compiled/` directory that is regularly updated.
 You can run the `jar` like so:
 
-`java -jar compiled/JPaint.jar`
+`java -jar compiled/JPaint.jar` or just double click on the `JAR`
 
 You may also run it by running the following commands:
 1. `git clone https://github.com/thecarterb/JPaint`
