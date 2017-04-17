@@ -8,8 +8,8 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 
-import static jpaint.util.LogType;
-import static jpaint.util.log;
+import static jpaint.helpers.LogType;
+import static jpaint.helpers.log;
 
 /**
  * The class that loads the FXML file and shows it
