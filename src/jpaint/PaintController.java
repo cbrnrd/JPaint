@@ -22,7 +22,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import static jpaint.util.*;
+import static jpaint.helpers.*;
 
 
 
