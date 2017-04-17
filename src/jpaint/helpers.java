@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 /**
  * A class containing utility methods for <code>PaintController</code>
  */
-public class util {
+public class helpers {
 
 
     /**
