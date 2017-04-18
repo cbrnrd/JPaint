@@ -15,10 +15,8 @@ import jpaint.exceptions.AlertException;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import javafx.print.PrinterJob;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -135,12 +133,10 @@ public class PaintController {
             log("Image saved to " + new File("paint.png").getAbsolutePath(), LogType.SUCCESS);
 
         } catch (Exception e){
-            try {
-                errorAlert("Unable to save. Error:" + e.getMessage(), "Error");
-                log("Unable to save. Error:" + e.getStackTrace(), LogType.ERROR);
-            } catch (AlertException ae){
-                ae.printStackTrace();
-            }
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            log(sw.toString(), LogType.ERROR);
         }
     }
 
@@ -170,12 +166,10 @@ public class PaintController {
                 log("Saving action cancelled", LogType.WARNING);
             }
         } catch (Exception e){
-            try {
-                errorAlert("Error saving file.\nError: " + e.getMessage(), "Error");
-                log("Unable to save file. Error: " + e.getStackTrace().toString(), LogType.ERROR);
-            } catch (AlertException ae){
-                ae.printStackTrace();
-            }
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            log(sw.toString(), LogType.ERROR);
         }
 
     }
@@ -219,6 +213,21 @@ public class PaintController {
 
 
     /**
+     * Has the user select a printer, then starts a <code>PrinterJob</code> to print the canvas
+     * @see javafx.print.PrinterJob
+     */
+    public void onPrint(){
+
+        PrinterJob job = PrinterJob.createPrinterJob();
+        if (job != null && job.showPrintDialog(canvas.getScene().getWindow())) {
+            boolean success = job.printPage(canvas);
+            if (success) {
+                job.endJob();
+            }
+        }
+    }
+
+    /**
      * Exits out of the program
      * @since 1.0.0
      */
@@ -229,7 +238,7 @@ public class PaintController {
 
 
     /**
-     * Displays the "about" message using {@link util#alertUser(String, String, String, Alert.AlertType)}
+     * Displays the "about" message using {@link helpers#alertUser(String, String, String, Alert.AlertType)}
      * @since 1.0.0
      */
     public void displayAbout(){

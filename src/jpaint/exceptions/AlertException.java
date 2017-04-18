@@ -1,6 +1,6 @@
 package jpaint.exceptions;
 
-import jpaint.util;
+import jpaint.helpers;
 
 /**
  * An exception used in <code>util</code> alert functions.
