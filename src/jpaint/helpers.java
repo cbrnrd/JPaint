@@ -82,7 +82,7 @@ public class helpers {
 
 
     /**
-     * Writes a message to <code>.jpaint_log</code> with {@link jpaint.util.LogType} <code>logType</code>}.
+     * Writes a message to <code>.jpaint_log</code> with {@link jpaint.helpers.LogType} <code>logType</code>}.
      * This has no association to {@link java.util.logging}
      * @param message The message to output.
      * @param logtype the type of message <code>message</code> is.
