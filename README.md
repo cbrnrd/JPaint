@@ -19,3 +19,7 @@ The javadoc documentation for JPaint is available at [thecarterb.github.io/JPain
 
 ## Contributing
 Feel free to contribute to JPaint in any way you feel is useful to the project. In your Pull Request, make sure you say what your contribution does for the project.
+
+### TODO
+
+* Implement the ability to print
