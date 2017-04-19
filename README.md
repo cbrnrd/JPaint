@@ -22,5 +22,6 @@ Feel free to contribute to JPaint in any way you feel is useful to the project. 
 
 ### TODO
 
-[x] Implement the ability to print
-[ ] Add keyboard shortcuts to menu items
+1. Implement the ability to print
+
+2. Add keyboard shortcuts to menu items
